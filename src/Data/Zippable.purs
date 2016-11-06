@@ -15,32 +15,23 @@
 module Data.Zippable where
 
 import Data.Functor (class Functor, map)
-import Data.Maybe (Maybe(..))
 import Data.Array as A
-import Data.Eq
 import Data.Tuple (Tuple(..))
 
 -- | The motivation for `Zippable` is to describe container types where you can combine two
--- | structurally congruent instances of the type by applying a binary operation pointwise
--- | between the elements of the two instances to create a new structurally congruent instance.
+-- | instances of the type by applying a binary operation pointwise between the elements of
+-- | the two instances to create a new structurally congruent instance.
 -- | 
 -- | `Zippable`s must satisfy the following laws, in addition to the `Functor` laws:
--- | 
--- | * `(zip f v u) == Nothing iff (structCong v u) == False`
--- | * `zip (\x y -> x) v u == v`
--- | * `zip (\x y -> y) v u == u`
--- | * If (structCong v u), then:
--- |   ```text
--- |   zip (\x y -> f (g x) (h y)) v u == zip f (fmap g v) (fmap h u)
--- |   ```
+-- |
+-- | ```text
+-- | zip (\x y -> x) v u == v
+-- | zip (\x y -> y) v u == u
+-- | zip (\x y -> f (g x) (h y)) v u == zip f (map g v) (map h u)
+-- | ```
 class (Functor f) <= Zippable f where
-  structCong :: forall a b. f a -> f b -> Boolean
-  zip :: forall a b c. (a -> b -> c) -> (f a -> f b -> Maybe (f c))
+  zip :: forall a b c. (a -> b -> c) -> (f a -> f b -> f c)
 
 instance arrayZippable :: Zippable Array where
-  structCong a1 a2 = A.length a1 == A.length a2
-  zip f a1 a2 =
-    if structCong a1 a2 then
-       Just (map (\(Tuple x y) -> f x y) (A.zip a1 a2)) else
-       Nothing
+  zip f a1 a2 = map (\(Tuple x y) -> f x y) (A.zip a1 a2)
 
