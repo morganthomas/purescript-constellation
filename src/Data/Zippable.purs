@@ -35,3 +35,5 @@ class (Functor f) <= Zippable f where
 instance arrayZippable :: Zippable Array where
   zip f a1 a2 = map (\(Tuple x y) -> f x y) (A.zip a1 a2)
 
+zip2 :: forall f a b. (Zippable f) => f a -> f b -> f (Tuple a b)
+zip2 = zip Tuple
