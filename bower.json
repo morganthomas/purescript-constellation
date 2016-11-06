@@ -7,7 +7,9 @@
     "output"
   ],
   "dependencies": {
-    "purescript-maybe": "^2.0.0"
+    "purescript-maybe": "^2.0.0",
+    "purescript-arrays": "^3.0.0",
+    "purescript-tuples": "^3.0.0"
   },
   "devDependencies": {
     "purescript-psci-support": "^2.0.0"
