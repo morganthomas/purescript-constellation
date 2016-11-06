@@ -17,7 +17,7 @@ module Data.Constellation where
 import Data.Functor (class Functor)
 import Data.Maybe (Maybe)
 
--- | Constellations must satisfy the following laws:
+-- | Constellations must satisfy the following laws, in addition to the Functor laws:
 -- | 
 -- | * (mapBinary f v u) == Nothing iff (structCong v u) == False.
 -- | * `mapBinary (\x y -> x) v u == v`
