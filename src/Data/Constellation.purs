@@ -20,6 +20,8 @@ import Data.Maybe (Maybe)
 -- | Constellations must satisfy the following laws:
 -- | 
 -- | * (mapBinary f v u) == Nothing iff (structCong v u) == False.
+-- | * `mapBinary (\x y -> x) v u == v`
+-- | * `mapBinary (\x y -> y) v u == u`
 -- | * If (structCong v u), then:
 -- |   ```text
 -- |   mapBinary (\x y -> f (g x) (h y)) v u == mapBinary f (fmap g v) (fmap h u)
