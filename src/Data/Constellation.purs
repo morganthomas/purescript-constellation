@@ -17,9 +17,13 @@ module Data.Constellation where
 import Data.Functor (class Functor)
 import Data.Maybe (Maybe)
 
--- | Constellations must satisfy the following laws, in addition to the Functor laws:
+-- | The motivation for `Constellation` is to describe container types where you can combine two
+-- | structurally congruent instances of the type by applying a binary operation pointwise
+-- | between the two instances to create a new structurally congruent instance.
 -- | 
--- | * (mapBinary f v u) == Nothing iff (structCong v u) == False.
+-- | `Constellation`s must satisfy the following laws, in addition to the `Functor` laws:
+-- | 
+-- | * `(mapBinary f v u) == Nothing iff (structCong v u) == False`
 -- | * `mapBinary (\x y -> x) v u == v`
 -- | * `mapBinary (\x y -> y) v u == u`
 -- | * If (structCong v u), then:
