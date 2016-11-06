@@ -17,7 +17,7 @@ module Data.Zippable where
 import Data.Functor (class Functor, map)
 import Data.Array as A
 import Data.Tuple (Tuple(..))
-import Data.Tuple.Nested (Tuple3, tuple3, Tuple4)
+import Data.Tuple.Nested (Tuple3, tuple3, Tuple4, Tuple5)
 
 -- | The motivation for `Zippable` is to describe container types where you can combine two
 -- | instances of the type by applying a binary operation pointwise between the elements of
@@ -44,3 +44,6 @@ zip3 u v w = zip (\x (Tuple y z) -> tuple3 x y z) u (zip2 v w)
 
 zip4 :: forall f a b c d. (Zippable f) => f a -> f b -> f c -> f d -> f (Tuple4 a b c d)
 zip4 t u v w = zip Tuple t (zip3 u v w)
+
+zip5 :: forall f a b c d e. (Zippable f) => f a -> f b -> f c -> f d -> f e -> f (Tuple5 a b c d e)
+zip5 s t u v w = zip Tuple s (zip4 t u v w)
