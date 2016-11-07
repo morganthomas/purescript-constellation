@@ -26,7 +26,7 @@ import Control.Monad (class Monad)
 -- | The motivation for `Zippable2` is to describe container types where you can combine two
 -- | instances of two related types (often the same type -- see `Zippable`) by applying a
 -- | binary operation pointwise between the elements of the two instances to create a new
--- | structurally congruent instance.
+-- | instance.
 -- | 
 -- | `Zippable2`s must satisfy the following law, in addition to the relevant `Functor` laws:
 -- |
