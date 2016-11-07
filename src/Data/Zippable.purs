@@ -19,9 +19,10 @@ import Data.Array as A
 import Data.Tuple (Tuple(..))
 import Data.Tuple.Nested (Tuple3, tuple3, Tuple4, Tuple5)
 
--- | The motivation for `Zippable` is to describe container types where you can combine two
--- | instances of the type by applying a binary operation pointwise between the elements of
--- | the two instances to create a new structurally congruent instance.
+-- | The motivation for `Zippable2` is to describe container types where you can combine two
+-- | instances of two related types (often the same type -- see `Zippable`) by applying a
+-- | binary operation pointwise between the elements of the two instances to create a new
+-- | structurally congruent instance.
 -- | 
 -- | `Zippable`s must satisfy the following laws, in addition to the relevant `Functor` laws:
 -- |
