@@ -23,18 +23,27 @@ import Data.Tuple.Nested (Tuple3, tuple3, Tuple4, Tuple5)
 -- | instances of the type by applying a binary operation pointwise between the elements of
 -- | the two instances to create a new structurally congruent instance.
 -- | 
--- | `Zippable`s must satisfy the following laws, in addition to the `Functor` laws:
+-- | `Zippable`s must satisfy the following laws, in addition to the relevant `Functor` laws:
 -- |
 -- | ```text
--- | zip (\x y -> x) v u == v
--- | zip (\x y -> y) v u == u
--- | zip (\x y -> f (g x) (h y)) v u == zip f (map g v) (map h u)
+-- | zip (\x y -> x) v u = v
+-- | zip (\x y -> f (g x) (h y)) v u = zip f (map g v) (map h u)
 -- | ```
-class (Functor f) <= Zippable f where
-  zipWith :: forall a b c. (a -> b -> c) -> (f a -> f b -> f c)
+class (Functor f, Functor g) <= Zippable2 f g where
+  zipWith :: forall a b c. (a -> b -> c) -> (f a -> g b -> f c)
 
-instance arrayZippable :: Zippable Array where
+-- | A `Zippable` is a functor which is zippable with itself. It must satisfy the following
+-- | law in addition to the Zippable laws:
+-- |
+-- | ```text
+-- | zip (\x y -> y) v u = u
+-- | ```
+class (Zippable2 f f) <= Zippable f
+
+instance arrayZippable2 :: Zippable2 Array Array where
   zipWith f a1 a2 = map (\(Tuple x y) -> f x y) (A.zip a1 a2)
+
+instance arrayZippable :: Zippable Array
 
 zip :: forall f a b. (Zippable f) => f a -> f b -> f (Tuple a b)
 zip = zipWith Tuple
