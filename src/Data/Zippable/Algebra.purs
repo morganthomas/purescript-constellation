@@ -23,6 +23,15 @@ newtype ZipAlgebra a = ZipAlgebra a
 instance zippableSemigroup :: (Zippable f, Semigroup g) => Semigroup (ZipAlgebra (f g)) where
   append (ZipAlgebra u) (ZipAlgebra v) = ZipAlgebra (zipWith append u v)
 
+-- | These exist to solve a conceptual problem. Consider the case Array Number. There is no
+-- | identity element for the hypothetical Monoid this would form as a zip algebra, because
+-- | each number array filled with zeroes acts as identity element only with arrays of the
+-- | same length. (This kind of problem technically violates most algebraic axioms, but
+-- | the axioms will hold when you're only dealing with number arrays of a single length, which
+-- | can be good enough in practice.) In the case of the identity element it's a bigger issue
+-- | because it actually violates the type class interface for Monoid if there's no single,
+-- | working identity element. The ZipAlgebraWithUnit type simply adds an artifical unit value
+-- | to any type you give it, which can act as a true identity element.
 data ZipAlgebraWithUnit a = ZipUnit | ZipValue a
 
 instance zippableSemigroupWithUnit :: (Zippable f, Semigroup g) => Semigroup (ZipAlgebraWithUnit (f g)) where
