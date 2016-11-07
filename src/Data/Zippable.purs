@@ -20,6 +20,8 @@ import Data.List as L
 import Data.List.Lazy as LL
 import Data.Tuple (Tuple(..))
 import Data.Tuple.Nested (Tuple3, tuple3, Tuple4, Tuple5)
+import Control.Monad.List.Trans as LT
+import Control.Monad (class Monad)
 
 -- | The motivation for `Zippable2` is to describe container types where you can combine two
 -- | instances of two related types (often the same type -- see `Zippable`) by applying a
@@ -63,6 +65,11 @@ instance listLazyZippable2 :: Zippable2 LL.List LL.List where
   zipWith = LL.zipWith
 
 instance listLazyZippable :: Zippable LL.List
+
+instance listTransformerZippable2 :: (Monad m) => Zippable2 (LT.ListT m) (LT.ListT m) where
+  zipWith = LT.zipWith
+
+instance listTransformerZippable :: (Monad m) => Zippable (LT.ListT m)
 
 zip :: forall f g a b. (Zippable2 f g) => f a -> g b -> f (Tuple a b)
 zip = zipWith Tuple
