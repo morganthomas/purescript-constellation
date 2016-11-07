@@ -1,4 +1,4 @@
-# purescript-monoid
+# purescript-zippable
 
 A type class generalizing the functions `zip`, `zipWith`, etc. which are defined for [a lot of
 different types](https://pursuit.purescript.org/search?q=zip). 
