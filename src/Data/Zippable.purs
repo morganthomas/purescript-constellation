@@ -29,6 +29,18 @@ import Data.Tuple.Nested (Tuple3, tuple3, Tuple4, Tuple5)
 -- | ```text
 -- | zipWith (\x y -> f (g x) (h y)) v u = zipWith f (map g v) (map h u)
 -- | ```
+-- |
+-- | `Zippable2` can be implemented whenever `f` implements `Traversable` and `g` implements
+-- | `Foldable`; see https://wiki.haskell.org/Foldable_and_Traversable#Generalising_zipWith.
+-- | This module does not include this generic implementation because of the feeling that
+-- | the best implementation will depend on what `f` and `g` are. The instance arrayZippable2
+-- | is a case in point; it uses Data.Array.zip, which has a native JavaScript implementation.
+-- |
+-- | I (Morgan Thomas) conjecture that although `Zippable2` can be implemented whenever `f`
+-- | implements `Traversable` and `g` implements `Foldable`, the converse does not hold.
+-- | That is, I conjecture that you cannot go from an implementation of `Zippable2 f g`
+-- | to an implementation of `Traversable f` and `Foldable g`, even given that `f` and `g`
+-- | are `Functor`s. This is the motivation for defining a separate type class for `Zippable2`.
 class (Functor f, Functor g) <= Zippable2 f g where
   zipWith :: forall a b c. (a -> b -> c) -> (f a -> g b -> f c)
 
