@@ -22,3 +22,10 @@ newtype ZipAlgebra a = ZipAlgebra a
 
 instance zippableSemigroup :: (Zippable f, Semigroup g) => Semigroup (ZipAlgebra (f g)) where
   append (ZipAlgebra u) (ZipAlgebra v) = ZipAlgebra (zipWith append u v)
+
+data ZipAlgebraWithUnit a = ZipUnit | ZipValue a
+
+instance zippableSemigroupWithUnit :: (Zippable f, Semigroup g) => Semigroup (ZipAlgebraWithUnit (f g)) where
+  append ZipUnit u = u
+  append u ZipUnit = u
+  append (ZipValue u) (ZipValue v) = ZipValue (zipWith append u v)
