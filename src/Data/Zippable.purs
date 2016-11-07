@@ -16,6 +16,8 @@ module Data.Zippable where
 
 import Data.Functor (class Functor, map)
 import Data.Array as A
+import Data.List as L
+import Data.List.Lazy as LL
 import Data.Tuple (Tuple(..))
 import Data.Tuple.Nested (Tuple3, tuple3, Tuple4, Tuple5)
 
@@ -51,6 +53,16 @@ instance arrayZippable2 :: Zippable2 Array Array where
   zipWith f a1 a2 = map (\(Tuple x y) -> f x y) (A.zip a1 a2)
 
 instance arrayZippable :: Zippable Array
+
+instance listZippable2 :: Zippable2 L.List L.List where
+  zipWith = L.zipWith
+
+instance listZippable :: Zippable L.List
+
+instance listLazyZippable2 :: Zippable2 LL.List LL.List where
+  zipWith = LL.zipWith
+
+instance listLazyZippable :: Zippable LL.List
 
 zip :: forall f g a b. (Zippable2 f g) => f a -> g b -> f (Tuple a b)
 zip = zipWith Tuple
