@@ -52,7 +52,7 @@ instance arrayZippable2 :: Zippable2 Array Array where
 
 instance arrayZippable :: Zippable Array
 
-zip :: forall f a b. (Zippable f) => f a -> f b -> f (Tuple a b)
+zip :: forall f g a b. (Zippable2 f g) => f a -> g b -> f (Tuple a b)
 zip = zipWith Tuple
 
 zip3 :: forall f a b c. (Zippable f) => f a -> f b -> f c -> f (Tuple3 a b c)
