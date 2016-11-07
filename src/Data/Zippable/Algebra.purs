@@ -16,8 +16,9 @@ module Data.Zippable.Algebra where
 
 import Data.Semigroup (class Semigroup, append)
 import Data.Zippable (class Zippable, zipWith)
+import Data.Monoid (class Monoid, mempty)
 
-newtype PointwiseAlgebra a = PointwiseAlgebra a
+newtype ZipAlgebra a = ZipAlgebra a
 
-instance zippableSemigroup :: (Zippable f, Semigroup g) => Semigroup (PointwiseAlgebra (f g)) where
-  append (PointwiseAlgebra u) (PointwiseAlgebra v) = PointwiseAlgebra (zipWith append u v)
+instance zippableSemigroup :: (Zippable f, Semigroup g) => Semigroup (ZipAlgebra (f g)) where
+  append (ZipAlgebra u) (ZipAlgebra v) = ZipAlgebra (zipWith append u v)
