@@ -3,6 +3,10 @@
   "homepage": "https://github.com/morganthomas/purescript-zippable",
   "description": "Type class for generic zipping",
   "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/morganthomas/purescript-zippable.git"
+  },
   "ignore": [
     "**/.*",
     "node_modules",
