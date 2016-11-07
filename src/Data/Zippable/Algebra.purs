@@ -16,7 +16,7 @@ module Data.Zippable.Algebra where
 
 import Data.Semigroup (class Semigroup, append)
 import Data.Zippable (class Zippable, zipWith)
-import Data.Monoid (class Monoid, mempty)
+import Data.Monoid (class Monoid)
 
 newtype ZipAlgebra a = ZipAlgebra a
 
@@ -38,3 +38,6 @@ instance zippableSemigroupWithUnit :: (Zippable f, Semigroup g) => Semigroup (Zi
   append ZipUnit u = u
   append u ZipUnit = u
   append (ZipValue u) (ZipValue v) = ZipValue (zipWith append u v)
+
+instance zippableMonoid :: (Zippable f, Monoid m) => Monoid (ZipAlgebraWithUnit (f m)) where
+  mempty = ZipUnit
