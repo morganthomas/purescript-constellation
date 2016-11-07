@@ -37,7 +37,7 @@ class (Functor f, Functor g) <= Zippable2 f g where
 -- | law in addition to the Zippable laws:
 -- |
 -- | ```text
--- | zip (\x y -> y) v u = u
+-- | zipWith (\x y -> y) v u = u
 -- | ```
 class (Zippable2 f f) <= Zippable f
 
