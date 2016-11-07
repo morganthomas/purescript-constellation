@@ -24,21 +24,15 @@ import Data.Tuple.Nested (Tuple3, tuple3, Tuple4, Tuple5)
 -- | binary operation pointwise between the elements of the two instances to create a new
 -- | structurally congruent instance.
 -- | 
--- | `Zippable2`s must satisfy the following laws, in addition to the relevant `Functor` laws:
+-- | `Zippable2`s must satisfy the following law, in addition to the relevant `Functor` laws:
 -- |
 -- | ```text
--- | zipWith (\x y -> x) v u = v
 -- | zipWith (\x y -> f (g x) (h y)) v u = zipWith f (map g v) (map h u)
 -- | ```
 class (Functor f, Functor g) <= Zippable2 f g where
   zipWith :: forall a b c. (a -> b -> c) -> (f a -> g b -> f c)
 
--- | A `Zippable` is a functor which is zippable with itself. It must satisfy the following
--- | law in addition to the Zippable laws:
--- |
--- | ```text
--- | zipWith (\x y -> y) v u = u
--- | ```
+-- | A `Zippable` is a functor which is zippable with itself.
 class (Zippable2 f f) <= Zippable f
 
 instance arrayZippable2 :: Zippable2 Array Array where
