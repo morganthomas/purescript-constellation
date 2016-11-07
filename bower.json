@@ -1,5 +1,8 @@
 {
-  "name": "purescript-constellation",
+  "name": "purescript-zippable",
+  "homepage": "https://github.com/morganthomas/purescript-zippable",
+  "description": "Type class for generic zipping",
+  "license": "Apache-2.0",
   "ignore": [
     "**/.*",
     "node_modules",
