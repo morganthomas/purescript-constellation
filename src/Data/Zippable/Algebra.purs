@@ -17,6 +17,8 @@ module Data.Zippable.Algebra where
 import Data.Semigroup (class Semigroup, append)
 import Data.Zippable (class Zippable, zipWith)
 import Data.Monoid (class Monoid)
+import Data.Group (class Group, ginverse)
+import Data.Functor (map)
 
 newtype ZipAlgebra a = ZipAlgebra a
 
@@ -41,3 +43,7 @@ instance zippableSemigroupWithUnit :: (Zippable f, Semigroup g) => Semigroup (Zi
 
 instance zippableMonoid :: (Zippable f, Monoid m) => Monoid (ZipAlgebraWithUnit (f m)) where
   mempty = ZipUnit
+
+instance zippableGroup :: (Zippable f, Group g) => Group (ZipAlgebraWithUnit (f g)) where
+  ginverse ZipUnit = ZipUnit
+  ginverse (ZipValue v) = ZipValue (map ginverse v)
